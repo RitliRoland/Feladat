@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Feladat</title>	
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css">
+	<script type="text/javascript" src="jquery.min.js"></script>
+	<script type="text/javascript" src="slick/slick.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/plugins/debug.addIndicators.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"></script>
+</head>
+<script type="text/javascript">
+	$(function () {
+		//az egyik panel a masikra csuszik
+		var controller = new ScrollMagic.Controller({
+			globalSceneOptions: {
+				triggerHook: 'onEnter'
+			}
+		});
+		var slides = document.querySelectorAll(".panel");
+		var height=0;
+		if(slides[0].offsetHeight<window.innerHeight){
+			height=window.innerHeight;
+			$('.second').css('margin-top','0px');
+		}
+		else{
+			height=slides[0].offsetHeight;
+		}
+		for (var i=0; i<slides.length; i++) {
+			if(i==0){
+				new ScrollMagic.Scene({
+						triggerElement: slides[i],
+						offset:height
+					})
+					.setPin(slides[i])
+					//.addIndicators() 
+					.addTo(controller);
+			}
+			else{
+				new ScrollMagic.Scene({
+						triggerElement: slides[i],
+						offset:slides[i].offsetHeight+5
+					})
+					.setPin(slides[i])
+					//.addIndicators() 
+					.addTo(controller);
+			}	
+		}
+		
+		//telefonba a kep jobbra-balra mozog
+		var fromLeftTimeline = new TimelineMax();
+		var fromLeftFrom = TweenMax.from(".front_img", 1, {
+			x: 0
+		});
+		var fromLeftTo = TweenMax.to(".front_img", 1, {
+			x: -257
+		});
+		fromLeftTimeline
+			.add(fromLeftFrom)
+			.add(fromLeftTo);
+		new ScrollMagic.Scene({
+				triggerElement: slides[0],
+				offset: slides[0].offsetHeight
+			})
+			.setTween(fromLeftTimeline)
+			.duration(400)
+			//.addIndicators()
+			.addTo(controller);
+	});
+
+    $(document).on('ready', function() {
+		$(".center").slick({
+			dots: false,
+			infinite: true,
+			centerMode: true,
+			slidesToShow: 2,
+			slidesToScroll: 1
+		});
+    });
+	
+	var lastScrollTop = 0;
+	$(window).scroll(function(){
+		if ($(window).scrollTop() >= 85) {
+			var st = $(this).scrollTop();
+			if (st < lastScrollTop && $(window).scrollTop() >= 200){
+				$('#sticky_header').fadeIn('slow');
+			}
+			else{
+				$('#sticky_header').fadeOut('slow');
+			}
+			lastScrollTop = st;
+		}
+		else {
+			$('#sticky_header').fadeOut('slow');
+			lastScrollTop=0;
+		}
+	});
+</script>
+<body>
+<div id="sticky_header" class="sticky_header">
+	<div class="part6">
+		<div class='Comin Comin_blue'></div>
+		<div class='menu'><a href=''>Products</a></div>
+		<div class='menu'><a href=''>About Us</a></div>
+		<div class='menu'><a href=''>Claim</a></div>
+		<div class='menu'><a href=''>Blog</a></div>
+		<div class='Rounded_Rectangle_1 Rounded_Rectangle_1_blue'>DOWNLOAD THE APP</div>
+		<div class='english english_blue'>eng</div>
+		<div class='arabic arabic_blue'>&#1593;&#1585;&#1576;&#1610;</div>
+	</div>
+</div>
+<div id="popup" class="color5">
+	<div class="part5">
+		<div class="Get_25__discount__on_your_first_policy_order_">GET 25% DISCOUNT<br> ON YOUR FIRST POLICY ORDER</div>
+		<div class="Enter_Your_Email_to_send__you_the_promocode"> ENTER YOUR EMAIL TO SEND<br> YOU THE PROMOCODE</div>
+		<input placeholder="Enter your email" class="Rounded_Rectangle_1_copy_8"></input>
+		<div class="Rounded_Rectangle_1_copy_9">
+			<div class="Send">SEND</div>
+		</div>
+		<img src="image/close.png" onclick="$('#popup').fadeOut('slow');">
+	</div>
+</div>
+<div class="panel color1">
+	<div class="part1">
+		<div class='Comin'></div>
+		<div class='menu'><a href=''>Products</a></div>
+		<div class='menu'><a href=''>About Us</a></div>
+		<div class='menu'><a href=''>Blog</a></div>
+		<div class='Rounded_Rectangle_1'>DOWNLOAD THE APP</div>
+		<div class='english'>eng</div>
+		<div class='arabic'>&#1593;&#1585;&#1576;&#1610;</div>
+		<div class="Your_modern_and_simple_way__of_buying_reliable_"> Your modern and simple way of buying reliable insurance.</div>
+		<div class="Easy_insurance__Your_way__Great_prices_">Easy insurance. Your way. Great prices.</div>
+		<div class="check_button">
+			<div class='Rounded_Rectangle_1_copy'>CHECK OUR PRODUCTS</div>
+			<div class="Read_our_story_">READ OUR STORY</div>
+			<img src="image/arrow.png">
+		</div>
+		<div class="phone"></div>
+		<div class='front_div'>
+			<img class='front_img' src="image/img-phone-inner.jpg"/>
+		</div>
+	</div>
+</div>
+<div class="panel second">
+	<div class="color2">
+		<div class="part2">
+			<div class="Innovation_Backed_by_Legacy">Innovation Backed by Legacy</div>
+			<div class="Comin_s_insurance_policies_today_are_issued_by_">
+				Comin's insurance policies today are issued by Commercial Insurance,<br>an established insurance company with more than 50 years of experience in the industry
+			</div>
+		</div>
+	</div>
+	<div class="color3">
+		<div class="part3">
+			<section class="center slider">
+				<div><img src="image/partner.png"></div>
+				<div><img src="image/partner.png"></div>
+				<div><img src="image/partner.png"></div>
+			</section>
+		</div>
+	</div>
+	<div class="color4">
+		<div class="part4">
+			<div class="products_div">
+				<div class="Products_Support_Download">PRODUCTS</div>
+				<a href="">Travel Insurance</a><br>
+				<a href="">Car Insurance</a><br>
+				<a href="">Home Insurance</a><br>
+				<a href="">Medical Malpractice Insurance</a><br>
+				<a href="">Pet Insurance</a><br>
+			</div>
+			<div class="support_div">
+				<div class="Products_Support_Download">SUPPORT</div>
+				<a href="">About Us</a><br>
+				<a href="">FAQ</a><br>
+				<a href="">Blog</a><br>
+			</div>
+			<div class="download_div">
+				<div class="Products_Support_Download download_the_app">DOWNLOAD THE APP</div>
+				<a href=""><img src="image/ios.png">Download for iOS</a>
+				<a href=""><img class="android" src="image/android.png">Download for Android</a>
+				<div class="Products_Support_Download follow_us">FOLLOW US</div>
+				<a href=""><img src="image/follow.png"></a>
+			</div><br>
+			<div class="languages"><img src="image/language.png"></div>
+			<div class="Rectangle_3_copy_3"></div>
+			<div class="Terms___Conditions_______Privacy_Policy"><a href="">Terms & Conditions | Privacy Policy</a></div>
+			<div class="Terms___Conditions_______Privacy_Policy copyright">@ Copyright 2018 COMIN. All rights Reserved.</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
